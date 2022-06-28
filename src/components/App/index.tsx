@@ -27,10 +27,11 @@ const App: FunctionComponent = (): JSX.Element => {
     <Wrapper>
       {prods.map((prod: any) => (
         <Card
+          id={prod.id}
           key={prod.title}
           image={prod.thumbnail}
           title={prod.title}
-          desc={prod.description}
+          description={prod.description}
           price={prod.price}
           brand={prod.brand}
           category={prod.category}
