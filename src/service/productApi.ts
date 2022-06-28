@@ -50,6 +50,9 @@ export const productApi = createApi({
         );
       },
     }),
+    getCategory: builder.query<string, void>({
+      query: () => `/category`,
+    }),
   }),
 });
 
@@ -58,4 +61,5 @@ export const {
   useGetProductByBrandQuery,
   useGetProductByCategoryQuery,
   useGetProductByFilterQuery,
+  useGetCategoryQuery,
 } = productApi;
