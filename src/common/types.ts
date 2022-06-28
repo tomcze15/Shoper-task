@@ -19,7 +19,7 @@ export interface IResponse {
   description: string;
   discountPercentage: number;
   id: number;
-  images: string[]
+  images: string[];
   price: number;
   rating: number;
   stock: number;
@@ -31,4 +31,11 @@ export interface ICardProps extends IProduct {}
 
 export interface IButtonProps {
   onClick: () => void;
+}
+
+export interface ISelectBoxProps {
+  title: string;
+  options: string[];
+  selected: string;
+  setSelected: (newSelected: string) => void;
 }

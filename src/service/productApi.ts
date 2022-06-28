@@ -55,7 +55,7 @@ export const productApi = createApi({
       query: ({ brand, category }) => createRequest(brand, category),
       transformResponse,
     }),
-    getCategory: builder.query<string, void>({
+    getCategory: builder.query<string[], void>({
       query: () => `/category`,
     }),
   }),
