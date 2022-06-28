@@ -34,5 +34,8 @@ export interface IButtonProps {
 }
 
 export interface ISelectBoxProps {
+  title: string;
   options: string[];
+  selected: string;
+  setSelected: (newSelected: string) => void;
 }
