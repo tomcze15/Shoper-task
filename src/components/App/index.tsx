@@ -1,13 +1,15 @@
 import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
-import { Button, Card, Loader } from 'components';
+import { Button, Card, Loader, SelectBox } from 'components';
 import { useGetProductQuery } from 'service/productApi';
 import { IProduct } from 'common/types';
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const App: FunctionComponent = (): JSX.Element => {

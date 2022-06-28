@@ -3,6 +3,9 @@
   padding: 0;
   margin: 0;
   font-family: 'Source Sans Pro';
+}
+
+#root {
   width: 100vw;
   height: 100vh;
 }
