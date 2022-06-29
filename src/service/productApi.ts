@@ -2,21 +2,29 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IProduct, IQueryFilter, IResponse } from 'common/types';
 import { baseUrl } from 'constants/items';
 
-const createRequest = (brand: string = '', category: string = ''): string => {
-  let url = '/products?';
+const createRequest = (query: IQueryFilter): string => {
+  let url = '/products';
 
-  if (brand !== '') {
-    url += `brand=${brand}`;
+  if (query.brand !== '') {
+    url += `?brand=${query.brand}`;
   }
 
-  if (category !== '') {
-    if (brand !== '') {
+  if (query.category !== '') {
+    if (query.brand !== '') {
       url += '&';
+    } else {
+      url += '?';
     }
-    url += `category=${category}`;
+    url += `category=${query.category}`;
   }
 
-  return url;
+  if (query.brand !== '' || query.category !== '') {
+    url += '&';
+  } else {
+    url += '?';
+  }
+
+  return (url += `_limit=${query.limit}`);
 };
 
 const transformResponse = (response: IResponse[]) => {
@@ -43,28 +51,22 @@ export const productApi = createApi({
       query: (count: number) => `/products?_limit=${count}`,
       transformResponse,
     }),
-    getProductByBrand: builder.query<IProduct[], string>({
-      query: (brand: string) => `/products?brand=${brand}`,
-      transformResponse,
-    }),
-    getProductByCategory: builder.query<IProduct[], string>({
-      query: (category: string) => `/products?category=${category}`,
-      transformResponse,
-    }),
     getProductByFilter: builder.query<IProduct[], IQueryFilter>({
-      query: ({ brand, category }) => createRequest(brand, category),
+      query: (query) => createRequest(query),
       transformResponse,
     }),
-    getCategory: builder.query<string[], void>({
+    getCategories: builder.query<string[], void>({
       query: () => `/category`,
+    }),
+    getBrands: builder.query<string[], void>({
+      query: () => `/brands`,
     }),
   }),
 });
 
 export const {
   useGetProductQuery,
-  useGetProductByBrandQuery,
-  useGetProductByCategoryQuery,
   useGetProductByFilterQuery,
-  useGetCategoryQuery,
+  useGetCategoriesQuery,
+  useGetBrandsQuery,
 } = productApi;

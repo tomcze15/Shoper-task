@@ -1,6 +1,19 @@
 {
   "products": [
     {
+      "id": 129,
+      "title": "Iphone 12",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 449,
+      "discountPercentage": 10,
+      "rating": 4.22,
+      "stock": 91,
+      "brand": "Apple",
+      "category": "smartphones",
+      "thumbnail": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-12-family-select-2021?wid=470&hei=556&fmt=jpeg&qlt=95&.v=1617135051000",
+      "images": []
+    },
+    {
       "id": 1,
       "title": "iPhone 9",
       "description": "An apple mobile which is nothing like apple",
@@ -291,26 +304,19 @@
       ]
     }
   ],
-  "category": [
-    "smartphones",
-    "laptops",
-    "fragrances",
-    "skincare",
-    "groceries",
-    "home-decoration",
-    "furniture",
-    "tops",
-    "womens-dresses",
-    "womens-shoes",
-    "mens-shirts",
-    "mens-shoes",
-    "mens-watches",
-    "womens-watches",
-    "womens-bags",
-    "womens-jewellery",
-    "sunglasses",
-    "automotive",
-    "motorcycle",
-    "lighting"
+  "category": ["smartphones", "laptops", "fragrances", "skincare", "groceries"],
+  "brands": [
+    "Apple",
+    "Samsung",
+    "OPPO",
+    "Huawei",
+    "Microsoft Surface",
+    "Infinix",
+    "HP Pavilion",
+    "Impression of Acqua Di Gio",
+    "Royal_Mirage",
+    "Fog Scent Xpressio",
+    "ROREC White Rice",
+    "Fair & Clear"
   ]
 }

@@ -1,9 +1,14 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { Button, Card, Loader, SelectBox } from 'components';
-import { useGetCategoryQuery, useGetProductQuery } from 'service/productApi';
+import {
+  useGetBrandsQuery,
+  useGetCategoriesQuery,
+  useGetProductByFilterQuery,
+} from 'service/productApi';
 import { IProduct } from 'common/types';
+import { TITLE } from 'constants/items';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,41 +19,78 @@ const Wrapper = styled.div`
 
 const App: FunctionComponent = (): JSX.Element => {
   const COUNTER = 5;
-  const TITLE = 'Select a category';
 
-  const [count, setCount] = useState(COUNTER);
-  const [category, setCategory] = useState('');
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [count, setCount] = useState<number>(COUNTER);
+  const [brand, setBrand] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const previousLenghtOfProds = useRef<number>(0);
+  const products = useRef<IProduct[]>([]);
+  const brands = useRef<string[]>([]);
+  const categories = useRef<string[]>([]);
 
-  const { data: prods, isFetching: isFetchingProds } =
-    useGetProductQuery(count);
+  useEffect(() => {
+    previousLenghtOfProds.current = 0;
+    setCount(COUNTER);
+  }, [category, brand]);
 
-  const { data: categories, isFetching: isFetchingCategories } =
-    useGetCategoryQuery();
+  const { data: categoriesData, isFetching: isFetchingCategories } =
+    useGetCategoriesQuery();
+
+  const { data: brandsData, isFetching: isFetchingBrands } =
+    useGetBrandsQuery();
+
+  const { data: prodsFiltered, isFetching: isFetchingProdsFiltered } =
+    useGetProductByFilterQuery({
+      brand,
+      category,
+      limit: count,
+    });
 
   const IncreaseCount = (): void => {
     setCount(count + COUNTER);
   };
 
-  if (isFetchingProds && isFetchingCategories) return <Loader />;
+  const displayButtonControl = (): boolean => {
+    if (products.current.length % COUNTER !== 0) {
+      return false;
+    }
 
-  if (!prods) return <div>No items</div>;
-  if (!categories) return <div>No categories</div>;
+    if (previousLenghtOfProds.current === products.current.length) {
+      return true;
+    }
 
-  const isDipslay = prods.length % COUNTER === 0 ? true : false;
+    previousLenghtOfProds.current = products.current.length;
+    return true;
+  };
+
+  if (isFetchingProdsFiltered || isFetchingCategories || isFetchingBrands) {
+    return <Loader />;
+  }
+
+  products.current = prodsFiltered ? prodsFiltered : [];
+  brands.current = brandsData ? brandsData : [];
+  categories.current = categoriesData ? categoriesData : [];
 
   return (
     <Wrapper>
       <SelectBox
-        title={TITLE}
-        options={categories}
+        title={TITLE.BRAND}
+        options={brands.current}
+        selected={brand}
+        setSelected={setBrand}
+      />
+      <SelectBox
+        title={TITLE.CATEGORY}
+        options={categories.current}
         selected={category}
         setSelected={setCategory}
       />
-      {prods.map((prod: IProduct) => (
+      {products.current.map((prod: IProduct) => (
         <Card {...prod} key={prod.id} />
       ))}
-      {isDipslay ? <Button onClick={() => IncreaseCount()} /> : null}
+      {displayButtonControl() ? (
+        <Button onClick={() => IncreaseCount()} />
+      ) : null}
     </Wrapper>
   );
 };

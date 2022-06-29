@@ -11,6 +11,7 @@ export interface IProduct {
 export interface IQueryFilter {
   brand: string;
   category: string;
+  limit: number;
 }
 
 export interface IResponse {
