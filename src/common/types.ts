@@ -39,3 +39,8 @@ export interface ISelectBoxProps {
   selected: string;
   setSelected: (newSelected: string) => void;
 }
+
+export interface IInputButtonProps {
+  placeholder?: string;
+  onChange?: (e: string) => void;
+}
