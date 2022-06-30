@@ -6,12 +6,23 @@ import { ICardProps } from 'common/types';
 const Wrapper = styled.div`
   height: 10rem;
   width: fit-content;
-  border: 6px solid #3c83ec;
+  border: 6px solid #444265;
   border-radius: 6px;
   display: flex;
   overflow: hidden;
   flex-direction: row;
-  background-color: #3c83ec;
+  background-color: #444265;
+  user-select: none;
+
+  &:hover {
+    -webkit-box-shadow: 0px 0px 16px 2px rgba(39, 35, 35, 1);
+    -moz-box-shadow: 0px 0px 16px 2px rgba(39, 35, 35, 1);
+    box-shadow: 0px 0px 16px 2px rgba(39, 35, 35, 1);
+
+    transform: scale(1.05);
+  }
+
+  transition: all 0.2s;
 `;
 
 const ImageWrapper = styled.div`
@@ -20,7 +31,6 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   background-color: transparent;
   text-align: center;
-  padding: 0 0.8rem 0 0.8rem;
 
   img {
     border-radius: 6px;
@@ -36,8 +46,7 @@ const DetailWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.5rem 1.5rem;
-  background-color: black;
+  padding: 0.5rem 1.2rem;
   color: white;
 
   span {

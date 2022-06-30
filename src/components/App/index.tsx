@@ -15,6 +15,23 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+`;
+
+const ItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding-bottom: 2rem;
+`;
+
+const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding-bottom: 2rem;
 `;
 
 const App: FunctionComponent = (): JSX.Element => {
@@ -27,6 +44,7 @@ const App: FunctionComponent = (): JSX.Element => {
   const products = useRef<IProduct[]>([]);
   const brands = useRef<string[]>([]);
   const categories = useRef<string[]>([]);
+  const divRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     previousLenghtOfProds.current = 0;
@@ -51,7 +69,10 @@ const App: FunctionComponent = (): JSX.Element => {
   };
 
   const displayButtonControl = (): boolean => {
-    if (products.current.length % COUNTER !== 0) {
+    if (
+      products.current.length % COUNTER !== 0 ||
+      products.current.length === 0
+    ) {
       return false;
     }
 
@@ -72,25 +93,27 @@ const App: FunctionComponent = (): JSX.Element => {
   categories.current = categoriesData ? categoriesData : [];
 
   return (
-    <Wrapper>
-      <SelectBox
-        title={TITLE.BRAND}
-        options={brands.current}
-        selected={brand}
-        setSelected={setBrand}
-      />
-      <SelectBox
-        title={TITLE.CATEGORY}
-        options={categories.current}
-        selected={category}
-        setSelected={setCategory}
-      />
-      {products.current.map((prod: IProduct) => (
-        <Card {...prod} key={prod.id} />
-      ))}
-      {displayButtonControl() ? (
-        <Button onClick={() => IncreaseCount()} />
-      ) : null}
+    <Wrapper ref={divRef}>
+      <FilterContainer>
+        <SelectBox
+          title={TITLE.BRAND}
+          options={brands.current}
+          selected={brand}
+          setSelected={setBrand}
+        />
+        <SelectBox
+          title={TITLE.CATEGORY}
+          options={categories.current}
+          selected={category}
+          setSelected={setCategory}
+        />
+      </FilterContainer>
+      <ItemsContainer>
+        {products.current.map((prod: IProduct) => (
+          <Card {...prod} key={prod.id} />
+        ))}
+      </ItemsContainer>
+      {displayButtonControl() ? <Button onClick={IncreaseCount} /> : null}
     </Wrapper>
   );
 };
