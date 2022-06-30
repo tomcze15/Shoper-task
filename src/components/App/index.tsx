@@ -44,7 +44,6 @@ const App: FunctionComponent = (): JSX.Element => {
   const products = useRef<IProduct[]>([]);
   const brands = useRef<string[]>([]);
   const categories = useRef<string[]>([]);
-  const divRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     previousLenghtOfProds.current = 0;
@@ -93,7 +92,7 @@ const App: FunctionComponent = (): JSX.Element => {
   categories.current = categoriesData ? categoriesData : [];
 
   return (
-    <Wrapper ref={divRef}>
+    <Wrapper>
       <FilterContainer>
         <SelectBox
           title={TITLE.BRAND}

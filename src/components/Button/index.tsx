@@ -10,8 +10,8 @@ const Btn = styled.button`
   min-width: 138px;
   font-size: 0.8rem;
   font-weight: 600;
-  text-transform: uppercase;
   letter-spacing: 1.1px;
+  text-transform: uppercase;
   background-color: transparent;
   border-radius: 20px;
   user-select: none;
