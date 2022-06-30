@@ -5,32 +5,36 @@ import { ICardProps } from 'common/types';
 
 const Wrapper = styled.div`
   height: 10rem;
-  width: 32rem;
+  width: fit-content;
   border: 2px solid #3c83ec;
+  border-radius: 25px;
   display: flex;
+  overflow: hidden;
   flex-direction: row;
   gap: 15px;
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
+  width: fit-content;
   height: 100%;
   overflow: hidden;
   background-color: yellow;
   text-align: center;
 
   img {
-    width: auto;
+    border-radius: 25px;
     height: 100%;
   }
 `;
 
 const DetailWrapper = styled.div`
-  width: 60%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 1.2rem;
+
   span {
     height: fit-content;
     width: 100%;
