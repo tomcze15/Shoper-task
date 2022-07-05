@@ -9,11 +9,12 @@ const Wrapper = styled.div`
 `;
 
 const SectionContainer = styled.select`
-  width: 16rem;
+  min-width: 16rem;
   height: 2rem;
   font-size: 1.2rem;
   border-radius: 10px;
   padding-left: 1rem;
+  padding-right: 2rem;
   outline: 0;
   border: 2px solid #000;
   color: #000;

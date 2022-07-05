@@ -76,7 +76,7 @@ const App: FunctionComponent = (): JSX.Element => {
     }
 
     if (previousLenghtOfProds.current === products.current.length) {
-      return true;
+      return false;
     }
 
     previousLenghtOfProds.current = products.current.length;

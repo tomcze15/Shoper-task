@@ -6,7 +6,7 @@ const createRequest = (query: IQueryFilter): string => {
   let url = '/products';
 
   if (query.brand !== '') {
-    url += `?brand=${query.brand}`;
+    url += `?brand=${query.brand.replaceAll('&', '%26')}`;
   }
 
   if (query.category !== '') {
