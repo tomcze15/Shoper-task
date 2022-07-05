@@ -63,6 +63,8 @@ const App: FunctionComponent = (): JSX.Element => {
       limit: count,
     });
 
+  console.log(prodsFiltered);
+
   const IncreaseCount = (): void => {
     setCount(count + COUNTER);
   };

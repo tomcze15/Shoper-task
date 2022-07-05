@@ -27,8 +27,8 @@ const SectionContainer = styled.select`
 
 const Arrow = styled.div`
   position: absolute;
-  top: 13px;
-  right: 15px;
+  top: 0.9rem;
+  right: 0.9rem;
   pointer-events: none;
   border-style: solid;
   border-width: 8px 5px 0px 5px;
