@@ -41,9 +41,6 @@ const App: FunctionComponent = (): JSX.Element => {
   const [brand, setBrand] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const previousLenghtOfProds = useRef<number>(0);
-  const products = useRef<IProduct[]>([]);
-  const brands = useRef<string[]>([]);
-  const categories = useRef<string[]>([]);
 
   useEffect(() => {
     previousLenghtOfProds.current = 0;
@@ -67,48 +64,43 @@ const App: FunctionComponent = (): JSX.Element => {
     setCount(count + COUNTER);
   };
 
-  const displayButtonControl = (): boolean => {
-    if (
-      products.current.length % COUNTER !== 0 ||
-      products.current.length === 0
-    ) {
-      return false;
-    }
-
-    if (previousLenghtOfProds.current === products.current.length) {
-      return false;
-    }
-
-    previousLenghtOfProds.current = products.current.length;
-    return true;
-  };
-
   if (isFetchingProdsFiltered || isFetchingCategories || isFetchingBrands) {
     return <Loader />;
   }
 
-  products.current = prodsFiltered ? prodsFiltered : [];
-  brands.current = brandsData ? brandsData : [];
-  categories.current = categoriesData ? categoriesData : [];
+  const products = prodsFiltered ? prodsFiltered : [];
+
+  const displayButtonControl = (): boolean => {
+    if (products.length % COUNTER !== 0 || products.length === 0) {
+      return false;
+    }
+
+    if (previousLenghtOfProds.current === products.length) {
+      return false;
+    }
+
+    previousLenghtOfProds.current = products.length;
+    return true;
+  };
 
   return (
     <Wrapper>
       <FilterContainer>
         <SelectBox
           title={TITLE.BRAND}
-          options={brands.current}
+          options={brandsData || []}
           selected={brand}
           setSelected={setBrand}
         />
         <SelectBox
           title={TITLE.CATEGORY}
-          options={categories.current}
+          options={categoriesData || []}
           selected={category}
           setSelected={setCategory}
         />
       </FilterContainer>
       <ItemsContainer>
-        {products.current.map((prod: IProduct) => (
+        {products.map((prod: IProduct) => (
           <Card {...prod} key={prod.id} />
         ))}
       </ItemsContainer>
